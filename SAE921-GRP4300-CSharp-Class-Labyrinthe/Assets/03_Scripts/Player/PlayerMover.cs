@@ -15,6 +15,7 @@ public class PlayerMover : MonoBehaviour
     [Header("Variables")]
     [SerializeField] private float velocity = 5.0f;
     private Vector3 movementVector;
+    [SerializeField] private float rotationSpeed = 1.0f;
     private Vector3 rotationVector;
 
     //Animations Hashes
@@ -51,6 +52,6 @@ public class PlayerMover : MonoBehaviour
     void FixedUpdate()
     {
         transform.Translate(movementVector * velocity * Time.deltaTime);
-        transform.Rotate(rotationVector);
+        transform.Rotate(rotationVector * rotationSpeed * 100.0f * Time.deltaTime);
     }
 }
