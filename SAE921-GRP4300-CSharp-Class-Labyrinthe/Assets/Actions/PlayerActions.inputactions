@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "New action",
+                    "name": "Action",
                     "type": "Value",
                     "id": "23ba28da-2980-46dd-82d0-f86dc920df9b",
                     "expectedControlType": "Button",
@@ -87,7 +87,7 @@
                     "interactions": "Tap",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

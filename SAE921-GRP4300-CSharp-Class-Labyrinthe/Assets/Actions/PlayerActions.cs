@@ -37,7 +37,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""New action"",
+                    ""name"": ""Action"",
                     ""type"": ""Value"",
                     ""id"": ""23ba28da-2980-46dd-82d0-f86dc920df9b"",
                     ""expectedControlType"": ""Button"",
@@ -109,7 +109,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                     ""interactions"": ""Tap"",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""New action"",
+                    ""action"": ""Action"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -121,7 +121,7 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
         // Actions
         m_Actions = asset.FindActionMap("Actions", throwIfNotFound: true);
         m_Actions_Move = m_Actions.FindAction("Move", throwIfNotFound: true);
-        m_Actions_Newaction = m_Actions.FindAction("New action", throwIfNotFound: true);
+        m_Actions_Action = m_Actions.FindAction("Action", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -182,13 +182,13 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Actions;
     private IActionsActions m_ActionsActionsCallbackInterface;
     private readonly InputAction m_Actions_Move;
-    private readonly InputAction m_Actions_Newaction;
+    private readonly InputAction m_Actions_Action;
     public struct ActionsActions
     {
         private @PlayerActions m_Wrapper;
         public ActionsActions(@PlayerActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Actions_Move;
-        public InputAction @Newaction => m_Wrapper.m_Actions_Newaction;
+        public InputAction @Action => m_Wrapper.m_Actions_Action;
         public InputActionMap Get() { return m_Wrapper.m_Actions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -201,9 +201,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Move.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnMove;
-                @Newaction.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnNewaction;
-                @Newaction.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnNewaction;
-                @Newaction.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnNewaction;
+                @Action.started -= m_Wrapper.m_ActionsActionsCallbackInterface.OnAction;
+                @Action.performed -= m_Wrapper.m_ActionsActionsCallbackInterface.OnAction;
+                @Action.canceled -= m_Wrapper.m_ActionsActionsCallbackInterface.OnAction;
             }
             m_Wrapper.m_ActionsActionsCallbackInterface = instance;
             if (instance != null)
@@ -211,9 +211,9 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Newaction.started += instance.OnNewaction;
-                @Newaction.performed += instance.OnNewaction;
-                @Newaction.canceled += instance.OnNewaction;
+                @Action.started += instance.OnAction;
+                @Action.performed += instance.OnAction;
+                @Action.canceled += instance.OnAction;
             }
         }
     }
@@ -221,6 +221,6 @@ public partial class @PlayerActions : IInputActionCollection2, IDisposable
     public interface IActionsActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnNewaction(InputAction.CallbackContext context);
+        void OnAction(InputAction.CallbackContext context);
     }
 }

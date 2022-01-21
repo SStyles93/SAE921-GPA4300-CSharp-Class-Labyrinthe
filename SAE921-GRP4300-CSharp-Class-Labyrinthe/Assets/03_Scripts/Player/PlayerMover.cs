@@ -9,14 +9,13 @@ public class PlayerMover : MonoBehaviour
     [SerializeField] private PlayerInputEmitter inputEmitter;
     
     [Header("Reference Components")]
-    [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator animator;
     
     [Header("Variables")]
     [SerializeField] private float velocity = 5.0f;
-    private Vector3 movementVector;
+    private Vector3 movementVector = Vector3.zero;
     [SerializeField] private float rotationSpeed = 1.0f;
-    private Vector3 rotationVector;
+    private Vector3 rotationVector = Vector3.zero;
 
     //Animations Hashes
     private int velocityHash;
@@ -25,7 +24,6 @@ public class PlayerMover : MonoBehaviour
     private void Awake()
     {
         inputEmitter = GetComponent<PlayerInputEmitter>();
-        rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
     }
 
