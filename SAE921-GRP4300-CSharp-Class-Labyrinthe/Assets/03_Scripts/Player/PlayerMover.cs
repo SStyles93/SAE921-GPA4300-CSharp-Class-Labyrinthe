@@ -7,35 +7,50 @@ public class PlayerMover : MonoBehaviour
     [Header("Reference Scripts")]
     [Tooltip("PlayerInputEmitter sends info to this script")]
     [SerializeField] private PlayerInputEmitter inputEmitter;
+    
     [Header("Reference Components")]
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator animator;
-    [SerializeField] private float velocity;
-    private Vector3 pointToLookAt;
+    
+    [Header("Variables")]
+    [SerializeField] private float velocity = 5.0f;
+    private Vector3 movementVector;
+    private Vector3 rotationVector;
+
+    //Animations Hashes
+    private int velocityHash;
+    private int rotationHash;
 
     private void Awake()
     {
         inputEmitter = GetComponent<PlayerInputEmitter>();
+        rb = GetComponent<Rigidbody>();
         animator = GetComponentInChildren<Animator>();
     }
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        velocityHash = Animator.StringToHash("Velocity");
+        rotationHash = Animator.StringToHash("Rotation");
     }
 
     void Update()
     {
-        pointToLookAt = transform.position + inputEmitter.Movement;
-        transform.LookAt(pointToLookAt);
+        //Sets the movementVector according to the input
+        movementVector = inputEmitter.Movement;
+        movementVector.x = 0.0f;
+        movementVector.y = 0.0f;
+        //Sets the rotationVector according to the input
+        rotationVector.y = inputEmitter.Movement.x;
+        rotationVector.z = 0.0f;
+        rotationVector.x = 0.0f;
+
+        animator.SetFloat(velocityHash, movementVector.z);
+        animator.SetFloat(rotationHash, rotationVector.y);
     }
     void FixedUpdate()
     {
-        MovePlayer(inputEmitter.Movement);
-    }
-    void MovePlayer(Vector3 direction)
-    {
-        rb.MovePosition(transform.position + (direction * velocity * Time.deltaTime));
-
+        transform.Translate(movementVector * velocity * Time.deltaTime);
+        transform.Rotate(rotationVector);
     }
 }

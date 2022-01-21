@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerInputEmitter : MonoBehaviour
 {
 
-    private Vector3 movement;
+    [SerializeField] private Vector3 movement;
     private bool action;
 
     #region Getter/Setter
