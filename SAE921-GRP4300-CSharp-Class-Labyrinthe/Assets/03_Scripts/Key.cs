@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Key : MonoBehaviour
 {
-    public float groundingTime = 1.0f;
-    public bool startGrounding = false;
+    [Header("Reference GameObjects")]
+    [Tooltip("Canvas contained in the Key")]
+    [SerializeField] private Canvas canvas;
+    
+    private float groundingTime = 1.0f;
+    private bool startGrounding = false;
 
-    public void Update()
+
+    private void Update()
     {
         if(startGrounding == true)
         {
@@ -32,5 +37,13 @@ public class Key : MonoBehaviour
             startGrounding = false;
             groundingTime = 1.0f;
         }
+    }
+    public void ActivateText()
+    {
+        canvas.gameObject.SetActive(true);
+    }
+    public void DeactivateText()
+    {
+        canvas.gameObject.SetActive(false);
     }
 }

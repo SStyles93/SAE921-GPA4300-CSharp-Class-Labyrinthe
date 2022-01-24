@@ -58,10 +58,15 @@ public class PlayerAction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Key>() && handPosition.transform.childCount == 0)
+        if (other.GetComponent<Key>())
         {
-            canPickUp = true;
-            key = other.gameObject;
+            other.GetComponent<Key>().ActivateText();
+
+            if (handPosition.transform.childCount == 0)
+            {
+                canPickUp = true;
+                key = other.gameObject;
+            } 
         }
     }
     private void OnTriggerStay(Collider other)
@@ -72,12 +77,13 @@ public class PlayerAction : MonoBehaviour
         if (other.GetComponent<Key>())
         {
             canPickUp = false;
+
             if(key != null)
             {
-                //key.GetComponent<Rigidbody>().isKinematic = true;
                 key = null;
             }
-            
+
+            other.GetComponent<Key>().DeactivateText();
         }
     }
 
