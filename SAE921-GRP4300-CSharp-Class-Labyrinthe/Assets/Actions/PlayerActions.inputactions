@@ -26,7 +26,7 @@
             ],
             "bindings": [
                 {
-                    "name": "2D Vector",
+                    "name": "2D Vector - KeyBoard",
                     "id": "0590ec60-561b-439d-8dab-89e1e61e40ab",
                     "path": "2DVector(mode=1)",
                     "interactions": "",
@@ -81,7 +81,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "2D Vector",
+                    "name": "2D Vector - PS",
                     "id": "aff6221c-9b71-4f8c-bd05-b8306b0238ef",
                     "path": "2DVector(mode=2)",
                     "interactions": "",
@@ -136,6 +136,61 @@
                     "isPartOfComposite": true
                 },
                 {
+                    "name": "2D Vector - Switch",
+                    "id": "43ee8a85-9878-446e-82d2-ae0e17c0cbdc",
+                    "path": "2DVector(mode=2)",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "ace3e1a3-b56e-42fc-9f64-980f16c95ae5",
+                    "path": "<Joystick>/stick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "31abba0d-6b97-4278-9ada-23dbf9e795f6",
+                    "path": "<Joystick>/stick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "3ad94f96-e675-4185-ad5e-7860d417da78",
+                    "path": "<Joystick>/stick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c48b4922-a4e5-4e72-8004-35a28ab1c67c",
+                    "path": "<Joystick>/stick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "",
                     "id": "bb384595-73d1-4a55-abaf-5a8547ba5ef8",
                     "path": "<Keyboard>/e",
@@ -151,6 +206,17 @@
                     "id": "26166099-e120-46ce-8250-fd0c2bd33b7c",
                     "path": "<DualShockGamepad>/buttonSouth",
                     "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "97ce254a-cfdc-469f-910f-a7a00fef2c69",
+                    "path": "<HID::Performance Designed Products Afterglow Deluxe+ Audio Wired Controller>/button2",
+                    "interactions": "Tap",
                     "processors": "",
                     "groups": "",
                     "action": "Action",
