@@ -22,6 +22,7 @@ public class Key : MonoBehaviour
     //Checks if the key is held or not
     private bool isHeld = false;
     private bool isSet = false;
+    private bool timerInitiated = false;
 
     private Vector3 initialPos;
 
@@ -95,10 +96,16 @@ public class Key : MonoBehaviour
 
     public IEnumerator TimerUntilReset()
     {
+        if (timerInitiated)
+            yield break;
+
+        timerInitiated = true;
+
         yield return new WaitForSecondsRealtime(timer);
 
         if (!isSet)
         {
+            timerInitiated = false;
             ResetKey();
         }
     }
