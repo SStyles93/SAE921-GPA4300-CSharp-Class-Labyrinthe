@@ -14,7 +14,7 @@ public class PlayerAction : MonoBehaviour
     [Header("Reference GameObjects")]
     [Tooltip("handPosition uses it's position to set objects to it")]
     [SerializeField] private GameObject handPosition;
-    [SerializeField] private GameObject key;
+    [SerializeField] private Key key;
 
     //Has to be set to false (true is for test purpose)
     [SerializeField] private bool canPickUp = false;
@@ -65,7 +65,7 @@ public class PlayerAction : MonoBehaviour
             if (handPosition.transform.childCount == 0)
             {
                 canPickUp = true;
-                key = other.gameObject;
+                key = other.GetComponent<Key>();
             } 
         }
     }
@@ -103,6 +103,7 @@ public class PlayerAction : MonoBehaviour
             handPosition.transform.position,
             handPosition.transform.rotation);
         key.GetComponent<Rigidbody>().detectCollisions = false;
+        key.IsHeld = true;
     }
     public void LetGo()
     {
@@ -112,12 +113,13 @@ public class PlayerAction : MonoBehaviour
         //Cancels the key - hand binding
         if(key == null)
         {
-            key = handPosition.GetComponentInChildren<Key>().gameObject;
+            key = handPosition.GetComponentInChildren<Key>();
         }
         key.transform.SetParent(null);
         Rigidbody keyRigidBody = key.GetComponent<Rigidbody>();
         keyRigidBody.detectCollisions = true;
         keyRigidBody.isKinematic = false;
+        key.IsHeld = false;
         key = null;
 
     }
