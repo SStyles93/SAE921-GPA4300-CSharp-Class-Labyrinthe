@@ -11,8 +11,13 @@ public class PlayerAction : MonoBehaviour
     [Header("Reference Components")]
     [SerializeField] private Animator animator;
 
+    [Header("Reference GameObjects")]
+    [Tooltip("handPosition uses it's position to set objects to it")]
+    [SerializeField] private GameObject handPosition;
+    [SerializeField] private GameObject key;
+
     //Has to be set to false (true is for test purpose)
-    [SerializeField] private bool canPickUp = true;
+    [SerializeField] private bool canPickUp = false;
 
     //Animations Hashes
     private int isHoldingHash;
@@ -21,7 +26,7 @@ public class PlayerAction : MonoBehaviour
     private void Awake()
     {
         inputEmitter = GetComponent<PlayerInputEmitter>();
-        animator = GetComponentInChildren<Animator>();
+        animator = GetComponent<Animator>();
     }
 
     void Start()
@@ -33,7 +38,7 @@ public class PlayerAction : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inputEmitter.Action && canPickUp)
+        if (inputEmitter.Action)
         {
             //Checks if player is already holding an object
             if (animator.GetBool(isHoldingHash))
@@ -41,26 +46,79 @@ public class PlayerAction : MonoBehaviour
                 //In case he is, let's go of the object
                 LetGo();
             }
-            else
+            else if(canPickUp)
             {
                 //Otherwise, picks up the Object
                 PickUp();
+                //Note: The Animator will launch "Hold" after the PickUp anim !
             }
             inputEmitter.Action = false;
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Key>())
+        {
+            other.GetComponent<Key>().ActivateText();
+
+            if (handPosition.transform.childCount == 0)
+            {
+                canPickUp = true;
+                key = other.gameObject;
+            } 
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Key>())
+        {
+            canPickUp = false;
+
+            if(key != null)
+            {
+                key = null;
+            }
+
+            other.GetComponent<Key>().DeactivateText();
+        }
+    }
+
     public void PickUp()
     {
         animator.SetTrigger(pickingUpHash);
-        Hold();
         canPickUp = false;
     }
     public void Hold()
     {
+        //Plays the Hold anim
         animator.SetBool(isHoldingHash, true);
+        
+        //Sets a key-hand binding
+        key.transform.SetParent(handPosition.transform);
+        key.transform.SetPositionAndRotation(
+            handPosition.transform.position,
+            handPosition.transform.rotation);
+        key.GetComponent<Rigidbody>().detectCollisions = false;
     }
     public void LetGo()
     {
+        //stops the holding anim 
         animator.SetBool(isHoldingHash, false);
+
+        //Cancels the key - hand binding
+        if(key == null)
+        {
+            key = handPosition.GetComponentInChildren<Key>().gameObject;
+        }
+        key.transform.SetParent(null);
+        Rigidbody keyRigidBody = key.GetComponent<Rigidbody>();
+        keyRigidBody.detectCollisions = true;
+        keyRigidBody.isKinematic = false;
+        key = null;
+
     }
 }
