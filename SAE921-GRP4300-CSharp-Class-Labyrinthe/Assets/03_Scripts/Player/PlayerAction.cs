@@ -58,27 +58,32 @@ public class PlayerAction : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<Key>())
-        {
-            other.GetComponent<Key>().ActivateText();
+        if (handPosition.transform.childCount != 0)
+            return;
 
-            if (handPosition.transform.childCount == 0)
+        Key tmpKey = other.GetComponent<Key>();
+        if (tmpKey)
+        {
+            tmpKey.ActivateText();
+
+            if (!tmpKey.IsSet)
             {
+                key = tmpKey;
                 canPickUp = true;
-                key = other.GetComponent<Key>();
             } 
         }
     }
     private void OnTriggerStay(Collider other)
     {
     }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<Key>())
         {
             canPickUp = false;
 
-            if(key != null)
+            if(key != null && !key.IsHeld)
             {
                 key = null;
             }
@@ -92,6 +97,7 @@ public class PlayerAction : MonoBehaviour
         animator.SetTrigger(pickingUpHash);
         canPickUp = false;
     }
+
     public void Hold()
     {
         //Plays the Hold anim
@@ -105,6 +111,7 @@ public class PlayerAction : MonoBehaviour
         key.GetComponent<Rigidbody>().detectCollisions = false;
         key.IsHeld = true;
     }
+
     public void LetGo()
     {
         //stops the holding anim 
@@ -120,7 +127,7 @@ public class PlayerAction : MonoBehaviour
         keyRigidBody.detectCollisions = true;
         keyRigidBody.isKinematic = false;
         key.IsHeld = false;
-        key = null;
 
+        key = null;
     }
 }

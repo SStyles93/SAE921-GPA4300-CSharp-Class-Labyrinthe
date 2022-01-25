@@ -276,7 +276,7 @@ MonoBehaviour:
   animator: {fileID: 2132342960}
   handPosition: {fileID: 7171592790942147048}
   key: {fileID: 0}
-  canPickUp: 1
+  canPickUp: 0
 --- !u!1001 &8988203095550934443
 PrefabInstance:
   m_ObjectHideFlags: 0

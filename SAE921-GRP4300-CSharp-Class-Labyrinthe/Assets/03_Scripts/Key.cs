@@ -16,8 +16,10 @@ public class Key : MonoBehaviour
     //Lets the object fall
     private float groundingTime = 1.0f;
     private bool startGrounding = false;
+
     //Checks if the key is held or not
     private bool isHeld = false;
+    private bool isSet = false;
 
     #region GETTER/SETTER
 
@@ -25,6 +27,11 @@ public class Key : MonoBehaviour
     {
         get { return isHeld; }
         set { isHeld = value; }
+    }
+    public bool IsSet
+    {
+        get { return isSet; }
+        set { isSet = value; }
     }
     public KeyTypes KeyType
     {
@@ -35,6 +42,9 @@ public class Key : MonoBehaviour
 
     private void Update()
     {
+        if (isSet)
+            return;
+
         if(startGrounding == true)
         {
             groundingTime -= Time.deltaTime;
@@ -61,15 +71,21 @@ public class Key : MonoBehaviour
     }
     public void ActivateText()
     {
+        if (isSet)
+            return;
+
         canvas.gameObject.SetActive(true);
     }
     public void DeactivateText()
     {
+        if (isSet)
+            return;
+
         canvas.gameObject.SetActive(false);
     }
-    public void DeleteText()
-    {
-        if(canvas.GetComponent<Image>().gameObject.activeInHierarchy)
-        canvas.GetComponentInChildren<Image>().gameObject.SetActive(false);
-    }
+    //public void DeleteText()
+    //{
+    //    if(canvas.GetComponent<Image>().gameObject.activeInHierarchy)
+    //    canvas.GetComponentInChildren<Image>().gameObject.SetActive(false);
+    //}
 }
