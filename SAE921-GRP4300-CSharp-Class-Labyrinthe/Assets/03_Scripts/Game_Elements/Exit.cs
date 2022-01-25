@@ -9,9 +9,9 @@ public class Exit : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.GetComponent<PlayerMover>())
         {
-            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+            ActivateExit();
         }
     }
 
@@ -26,6 +26,11 @@ public class Exit : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(exitTime);
 
-        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        if (SceneManager.sceneCountInBuildSettings > SceneManager.GetActiveScene().buildIndex + 1)
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
+        else
+        {
+            SceneManager.LoadSceneAsync(0);
+        }
     }
 }
