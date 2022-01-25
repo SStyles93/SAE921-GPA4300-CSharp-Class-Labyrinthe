@@ -618,7 +618,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21550d0d408512b43aa9d5a7181bc3d8, type: 3}
---- !u!1001 &8988203096650090590
+--- !u!1001 &8157180199016429474
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -629,10 +629,6 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 3302852330426302522, guid: 7f7d2621417e0284488d89d247cb6429, type: 3}
-    - target: {fileID: 1803064509722750454, guid: 7f7d2621417e0284488d89d247cb6429, type: 3}
-      propertyPath: velocity
-      value: 4
-      objectReference: {fileID: 0}
     - target: {fileID: 8988203097163080445, guid: 7f7d2621417e0284488d89d247cb6429, type: 3}
       propertyPath: m_RootOrder
       value: 4
