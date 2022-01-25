@@ -13,6 +13,8 @@ public class Key : MonoBehaviour
     [Space(20)]
     [SerializeField] private KeyTypes keyType;
 
+    [SerializeField] private float timer = 15.0f;
+
     //Lets the object fall
     private float groundingTime = 1.0f;
     private bool startGrounding = false;
@@ -20,6 +22,8 @@ public class Key : MonoBehaviour
     //Checks if the key is held or not
     private bool isHeld = false;
     private bool isSet = false;
+
+    private Vector3 initialPos;
 
     #region GETTER/SETTER
 
@@ -39,6 +43,11 @@ public class Key : MonoBehaviour
     }
 
     #endregion
+
+    private void Start()
+    {
+        initialPos = transform.position;
+    }
 
     private void Update()
     {
@@ -83,9 +92,22 @@ public class Key : MonoBehaviour
 
         canvas.gameObject.SetActive(false);
     }
-    //public void DeleteText()
-    //{
-    //    if(canvas.GetComponent<Image>().gameObject.activeInHierarchy)
-    //    canvas.GetComponentInChildren<Image>().gameObject.SetActive(false);
-    //}
+
+    public IEnumerator TimerUntilReset()
+    {
+        yield return new WaitForSecondsRealtime(timer);
+
+        if (!isSet)
+        {
+            ResetKey();
+        }
+    }
+    
+    private void ResetKey()
+    {
+        transform.position = initialPos;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<PlayerAction>().LetGo();
+        GetComponent<AudioSource>().Play();
+    }
 }

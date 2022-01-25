@@ -110,6 +110,8 @@ public class PlayerAction : MonoBehaviour
             handPosition.transform.rotation);
         key.GetComponent<Rigidbody>().detectCollisions = false;
         key.IsHeld = true;
+
+        StartCoroutine(key.TimerUntilReset());
     }
 
     public void LetGo()
