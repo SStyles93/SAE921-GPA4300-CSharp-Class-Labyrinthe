@@ -128,6 +128,8 @@ MonoBehaviour:
   cubeKeyPos: {fileID: 7929876829191400444}
   pyramidKeyPos: {fileID: 7929876829135271150}
   sphereKeyPos: {fileID: 7929876829250219453}
+  openOffset: {x: 1, y: 2, z: 0}
+  keys: []
 --- !u!1 &7929876829135271150
 GameObject:
   m_ObjectHideFlags: 0
