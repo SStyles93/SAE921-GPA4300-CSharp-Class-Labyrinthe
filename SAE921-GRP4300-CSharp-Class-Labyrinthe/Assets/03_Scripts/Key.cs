@@ -1,16 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Key : MonoBehaviour
 {
     [Header("Reference GameObjects")]
     [Tooltip("Canvas contained in the Key")]
     [SerializeField] private Canvas canvas;
-    
+
+    public enum KeyTypes{Cube, Sphere, Pyramid}
+    [Space(20)]
+    [SerializeField] private KeyTypes keyType;
+
+    //Lets the object fall
     private float groundingTime = 1.0f;
     private bool startGrounding = false;
+    //Checks if the key is held or not
+    private bool isHeld = false;
 
+    #region GETTER/SETTER
+
+    public bool IsHeld
+    {
+        get { return isHeld; }
+        set { isHeld = value; }
+    }
+    public KeyTypes KeyType
+    {
+        get { return keyType; }
+    }
+
+    #endregion
 
     private void Update()
     {
@@ -21,7 +42,7 @@ public class Key : MonoBehaviour
             {
                 GetComponent<Rigidbody>().isKinematic = true;
             }
-        }
+        } 
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -45,5 +66,10 @@ public class Key : MonoBehaviour
     public void DeactivateText()
     {
         canvas.gameObject.SetActive(false);
+    }
+    public void DeleteText()
+    {
+        if(canvas.GetComponent<Image>().gameObject.activeInHierarchy)
+        canvas.GetComponentInChildren<Image>().gameObject.SetActive(false);
     }
 }
