@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Door : MonoBehaviour
 {
+    [SerializeField] private MusicManager musicManager;
+
     [SerializeField] private GameObject cubeKeyPos;
     [SerializeField] private GameObject pyramidKeyPos;
     [SerializeField] private GameObject sphereKeyPos;
@@ -68,11 +70,21 @@ public class Door : MonoBehaviour
 
             if (!key.IsSet)
             {
+                //Mark the key as set
                 keys.Add(key);
                 key.IsSet = true;
 
+                //Play a nice sound effect
+                GetComponent<AudioSource>().Play();
+
+                //Open the door if enough keys are placed
                 if (keys.Count == 3)
                     OpenDoor();
+                else
+                {
+                    //Stop the music if there's more key to find
+                    musicManager.RequestPlay(0);
+                }
             }
         }
     }

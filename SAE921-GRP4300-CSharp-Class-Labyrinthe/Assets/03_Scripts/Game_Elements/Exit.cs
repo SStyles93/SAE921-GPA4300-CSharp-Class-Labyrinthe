@@ -9,6 +9,8 @@ public class Exit : MonoBehaviour
     [SerializeField] private GameObject cameraObject;
     [SerializeField] private Transform cameraTargetTransform;
 
+    [SerializeField] private MusicManager musicManager;
+
     private bool gameOver = false;
 
     private void OnTriggerEnter(Collider other)
@@ -35,6 +37,9 @@ public class Exit : MonoBehaviour
         cameraObject.transform.SetParent(null);
 
         gameOver = true;
+
+        //Play a win music
+        musicManager.RequestPlay(2);
 
         StartCoroutine(DelayedChangeScene());
     }

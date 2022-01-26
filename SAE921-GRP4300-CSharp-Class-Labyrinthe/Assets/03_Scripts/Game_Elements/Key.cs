@@ -116,12 +116,22 @@ public class Key : MonoBehaviour
     
     private void ResetKey()
     {
+        //Stop the stressfull music
         if (musicManager)
             musicManager.RequestPlay(0);
-        GetComponent<Rigidbody>().isKinematic = false;
-        transform.position = initialPos;
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<PlayerAction>().LetGo();
+
+        //Play the drop sound effect
         GetComponent<AudioSource>().Play();
+
+        //Reset the key
+        transform.position = initialPos;
+        GetComponent<Rigidbody>().isKinematic = false;
+
+        //Make the player drop the key
+        if (IsHeld)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            player.GetComponent<PlayerAction>().LetGo();
+        }
     }
 }
