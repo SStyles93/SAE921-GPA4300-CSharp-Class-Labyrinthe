@@ -17,7 +17,13 @@ public class Exit : MonoBehaviour
     {
         if (other.GetComponent<PlayerMover>())
         {
-            ActivateExit();
+            if (!gameOver)
+            {
+                ActivateExit();
+                other.GetComponent<Animator>().SetFloat("Velocity", 0.0f);
+                other.GetComponent<PlayerMover>().enabled = false;
+            }
+            
         }
     }
 

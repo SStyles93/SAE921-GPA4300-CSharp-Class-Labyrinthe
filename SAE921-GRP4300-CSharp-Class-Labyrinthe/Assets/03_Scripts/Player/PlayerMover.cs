@@ -21,6 +21,16 @@ public class PlayerMover : MonoBehaviour
     private int velocityHash;
     private int rotationHash;
 
+    #region Getter/Setter
+
+    public Vector3 MovementVector
+    {
+        get { return movementVector; }
+        set { movementVector = value; }
+    }
+
+    #endregion
+
     private void Awake()
     {
         inputEmitter = GetComponent<PlayerInputEmitter>();
