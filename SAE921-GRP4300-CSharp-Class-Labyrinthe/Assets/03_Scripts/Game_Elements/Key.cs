@@ -8,6 +8,7 @@ public class Key : MonoBehaviour
     [Header("Reference GameObjects")]
     [Tooltip("Canvas contained in the Key")]
     [SerializeField] private Canvas canvas;
+    [SerializeField] private MusicManager musicManager;
 
     public enum KeyTypes{Cube, Sphere, Pyramid}
     [Space(20)]
@@ -22,6 +23,7 @@ public class Key : MonoBehaviour
     //Checks if the key is held or not
     private bool isHeld = false;
     private bool isSet = false;
+    private bool timerInitiated = false;
 
     private Vector3 initialPos;
 
@@ -95,16 +97,28 @@ public class Key : MonoBehaviour
 
     public IEnumerator TimerUntilReset()
     {
+        if (timerInitiated)
+            yield break;
+
+        if (musicManager)
+            musicManager.RequestPlay(1);
+
+        timerInitiated = true;
+
         yield return new WaitForSecondsRealtime(timer);
 
         if (!isSet)
         {
+            timerInitiated = false;
             ResetKey();
         }
     }
     
     private void ResetKey()
     {
+        if (musicManager)
+            musicManager.RequestPlay(0);
+
         transform.position = initialPos;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerAction>().LetGo();

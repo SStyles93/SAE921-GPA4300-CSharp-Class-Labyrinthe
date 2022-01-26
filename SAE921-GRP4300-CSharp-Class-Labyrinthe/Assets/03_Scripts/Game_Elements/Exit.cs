@@ -5,7 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class Exit : MonoBehaviour
 {
-    [SerializeField] private float exitTime = 1.0f;
+    [SerializeField] private float exitTime = 5.0f;
+    [SerializeField] private GameObject cameraObject;
+    [SerializeField] private Transform cameraTargetTransform;
+
+    private bool gameOver = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,9 +19,23 @@ public class Exit : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //Lerp the camera to it's final position
+        if (gameOver)
+        {
+            cameraObject.transform.position = Vector3.Lerp(cameraObject.transform.position, cameraTargetTransform.position, Time.deltaTime);
+            cameraObject.transform.rotation = Quaternion.Lerp(cameraObject.transform.rotation, cameraTargetTransform.rotation, Time.deltaTime);
+        }
+    }
+
     //Apply visual effects to the exit and change the scene 
     void ActivateExit()
     {
+        cameraObject.transform.SetParent(null);
+
+        gameOver = true;
+
         StartCoroutine(DelayedChangeScene());
     }
 

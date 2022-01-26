@@ -8,15 +8,22 @@ public class Door : MonoBehaviour
     [SerializeField] private GameObject pyramidKeyPos;
     [SerializeField] private GameObject sphereKeyPos;
     [SerializeField] private Vector3 openOffset;
+
     private Vector3 openPos;
+    private Transform doorPanel;
 
     [SerializeField] private List<Key> keys;
 
     bool open = false;
 
+    private void Awake()
+    {
+        doorPanel = transform.GetChild(0);
+    }
+
     void Start()
     {
-        openPos = transform.position + openOffset;
+        openPos = doorPanel.position + openOffset;
     }
 
     // Update is called once per frame
@@ -24,7 +31,7 @@ public class Door : MonoBehaviour
     {
         if (open)
         {
-            transform.position = Vector3.Lerp(transform.position, openPos, Time.deltaTime);
+            doorPanel.position = Vector3.Lerp(doorPanel.position, openPos, Time.deltaTime);
         }
     }
 
