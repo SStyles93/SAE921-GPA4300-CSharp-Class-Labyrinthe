@@ -118,7 +118,7 @@ public class Key : MonoBehaviour
     {
         if (musicManager)
             musicManager.RequestPlay(0);
-
+        GetComponent<Rigidbody>().isKinematic = false;
         transform.position = initialPos;
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<PlayerAction>().LetGo();
